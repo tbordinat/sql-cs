@@ -4,10 +4,10 @@ namespace SqlCs\Lexer;
 
 class Lexer extends \Doctrine\ORM\Query\Lexer
 {
-	const T_ALTER = 257;
-	const T_CREATE = 258;
-	const T_DATABASE = 259;
-	const T_TABLE = 260;
+    const T_ALTER = 257;
+    const T_CREATE = 258;
+    const T_DATABASE = 259;
+    const T_TABLE = 260;
 
     /**
      * Creates a new query scanner object.

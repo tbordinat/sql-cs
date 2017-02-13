@@ -3,20 +3,19 @@ namespace SqlCs\Parser;
 
 class ParserResult
 {
-	private $createTableMap = array();
+    private $createTableMap = array();
 
-	public function __construct() 
-	{
+    public function __construct()
+    {
+    }
 
-	}
+    public function getTablenames()
+    {
+        return $this->createTableMap;
+    }
 
-	public function getTablenames()
-	{
-		return $this->createTableMap;
-	}
-
-	public function addCreateTable($tablename)
-	{
-		$this->createTableMap[] = $tablename;
-	}
+    public function addCreateTable($tablename)
+    {
+        $this->createTableMap[] = $tablename;
+    }
 }

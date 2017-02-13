@@ -16,7 +16,6 @@ use SqlCs\Runner\Runner;
 
 final class SqlCsCommand extends Command
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -30,10 +29,10 @@ final class SqlCsCommand extends Command
             ->setName('check')
             ->setDefinition(
                 array(
-					new InputOption('config', '', InputOption::VALUE_REQUIRED, 'Configuration file'),
-					new InputOption('dbms', '', InputOption::VALUE_REQUIRED, 'Database management system'),
-					new InputOption('file', '', InputOption::VALUE_REQUIRED, '.sql file to check'),
-					new InputOption('tablename_maxlength', '', InputOption::VALUE_REQUIRED, 'Maxlength for table names'),
+                    new InputOption('config', '', InputOption::VALUE_REQUIRED, 'Configuration file'),
+                    new InputOption('dbms', '', InputOption::VALUE_REQUIRED, 'Database management system'),
+                    new InputOption('file', '', InputOption::VALUE_REQUIRED, '.sql file to check'),
+                    new InputOption('tablename_maxlength', '', InputOption::VALUE_REQUIRED, 'Maxlength for table names'),
                 )
             )
             ->setDescription('Checks a SQL database creation statement.')
@@ -50,7 +49,7 @@ final class SqlCsCommand extends Command
 
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
-        	'ansi' => '', 'help' => '', 'no-ansi' => '', 'no-interaction' => '', 'quiet' => '', 'verbose' => '', 'version' => '', // There is a better way...
+            'ansi' => '', 'help' => '', 'no-ansi' => '', 'no-interaction' => '', 'quiet' => '', 'verbose' => '', 'version' => '', // There is a better way...
             'config' => null,
             'dbms' => 'default',
             'file' => null,
@@ -59,9 +58,9 @@ final class SqlCsCommand extends Command
 
         $options = $resolver->resolve($input->getOptions());
 
-		$runner = new Runner($options);
-		$runner->check();
+        $runner = new Runner($options);
+        $runner->check();
 
-		return 0;
+        return 0;
     }
 }

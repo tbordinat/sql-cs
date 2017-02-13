@@ -20,7 +20,8 @@ final class Runner
      */
     private $options;
 
-    public function __construct($options) {
+    public function __construct($options)
+    {
         $content = file_get_contents($options['file']);
 
         $this->parser = new Parser($content);
@@ -39,10 +40,8 @@ final class Runner
 
     public function checkTableName($tablenames)
     {
-        foreach($tablenames as $tablename)
-        {
-            if(strlen($tablename) > $this->options['tablename_maxlength'])
-            {
+        foreach ($tablenames as $tablename) {
+            if (strlen($tablename) > $this->options['tablename_maxlength']) {
                 echo 'tablename_maxlength constraint violated for '.$tablename;
             }
         }
