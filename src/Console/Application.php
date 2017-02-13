@@ -3,6 +3,7 @@
 namespace SqlCs\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
+use SqlCs\Console\Command\SqlCsCommand;
 
 final class Application extends BaseApplication
 {
@@ -17,5 +18,6 @@ final class Application extends BaseApplication
 
         parent::__construct('SQL CS', self::VERSION);
 
+        $this->add(new SqlCsCommand());
     }
 }
