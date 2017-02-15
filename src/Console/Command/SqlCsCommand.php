@@ -30,9 +30,9 @@ final class SqlCsCommand extends Command
             ->setName('check')
             ->setDefinition(
                 array(
-                    new InputOption('config', '', InputOption::VALUE_REQUIRED, 'Configuration file'),
+                    new InputOption('config-file', '', InputOption::VALUE_REQUIRED, 'Configuration file (.yml)'),
                     new InputOption('dbms', '', InputOption::VALUE_REQUIRED, 'Database management system'),
-                    new InputOption('file', '', InputOption::VALUE_REQUIRED, '.sql file to check'),
+                    new InputArgument('file', InputArgument::REQUIRED, 'SQL file to check (.sql)'),
                 )
             )
             ->setDescription('Checks a SQL database creation statement.')
@@ -50,12 +50,12 @@ final class SqlCsCommand extends Command
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
             'ansi' => '', 'help' => '', 'no-ansi' => '', 'no-interaction' => '', 'quiet' => '', 'verbose' => '', 'version' => '', // There is a better way...
-            'config' => null,
+            'config-file' => null,
             'dbms' => 'default',
-            'file' => null,
         ));
 
         $options = $resolver->resolve($input->getOptions());
+        $options['file'] = $input->getArgument('file');
 
         $runner = new Runner($options);
         $runner->check();

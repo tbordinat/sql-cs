@@ -47,11 +47,11 @@ final class Runner
 
         $sql = file_get_contents($options['file']);
 
-        if (!is_null($options['config'])) {
-            if (!file_exists($options['config'])) {
-                throw new \Exception($options['config'].' not found.');
+        if (!is_null($options['config-file'])) {
+            if (!file_exists($options['config-file'])) {
+                throw new \Exception($options['config-file'].' not found.');
             }
-            $config = Yaml::parse(file_get_contents($options['config']));
+            $config = Yaml::parse(file_get_contents($options['config-file']));
         } else {
             $config = array();
             $this->reportManager->report(new Report(Report::TYPE_WARNING, 'No configuration file set, default configuration will be used.'));

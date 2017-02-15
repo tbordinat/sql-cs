@@ -8,4 +8,4 @@ This tool verifies that the SQL script for database creation meets the defined n
     
 ## Usage 
 
-    php sql-cs check --file=file_to_test.sql 
+    php sql-cs check file_to_test.sql [--config-file CONFIG-FILE]
