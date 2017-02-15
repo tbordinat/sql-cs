@@ -22,12 +22,14 @@ class Parser
 
     public function walk()
     {
-        $this->lexer->moveNext();
-        
-        switch ($this->lexer->lookahead['type']) {
-            case Lexer::T_CREATE:
-                $this->walkCreateStatement();
-                break;
+        while ($this->lexer->moveNext()) {
+            switch ($this->lexer->lookahead['type']) {
+                case Lexer::T_CREATE:
+                    $this->walkCreateStatement();
+                    break;
+                default:
+                    $this->walk();
+            }
         }
     }
 
