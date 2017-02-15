@@ -1,0 +1,13 @@
+language: php
+
+php:
+    - 5.3
+    - 5.4
+    - 5.5
+    - 5.6
+    - 7.0
+
+script:
+  - wget https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.1.0/php-cs-fixer.phar -O php-cs-fixer
+  - php php-cs-fixer fix src --dry-run
+
