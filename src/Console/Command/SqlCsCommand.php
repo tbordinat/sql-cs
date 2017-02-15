@@ -13,6 +13,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 use SqlCs\Runner\Runner;
+use SqlCs\Report\Report;
 
 final class SqlCsCommand extends Command
 {
@@ -32,7 +33,6 @@ final class SqlCsCommand extends Command
                     new InputOption('config', '', InputOption::VALUE_REQUIRED, 'Configuration file'),
                     new InputOption('dbms', '', InputOption::VALUE_REQUIRED, 'Database management system'),
                     new InputOption('file', '', InputOption::VALUE_REQUIRED, '.sql file to check'),
-                    new InputOption('tablename_maxlength', '', InputOption::VALUE_REQUIRED, 'Maxlength for table names'),
                 )
             )
             ->setDescription('Checks a SQL database creation statement.')
@@ -53,7 +53,6 @@ final class SqlCsCommand extends Command
             'config' => null,
             'dbms' => 'default',
             'file' => null,
-            'tablename_maxlength' => null
         ));
 
         $options = $resolver->resolve($input->getOptions());
@@ -61,6 +60,27 @@ final class SqlCsCommand extends Command
         $runner = new Runner($options);
         $runner->check();
 
-        return 0;
+        foreach ($runner->getReportManager()->getReports() as $report) {
+            $this->output($output, $report);
+        }
+
+        return $runner->getReportManager()->hasErrors() ? 1 : 0;
+    }
+
+    private function output(OutputInterface $output, Report $report)
+    {
+        switch ($report->getType()) {
+            case Report::TYPE_VALID:
+                $output->writeln('<info>[VALID]</info>'.$report->getMessage());
+                break;
+            case Report::TYPE_ERROR:
+                $output->writeln('<error>[ERROR]</error>'.$report->getMessage());
+                break;
+            case Report::TYPE_WARNING:
+                $output->writeln('<comment>[WARNING]</comment>'.$report->getMessage());
+                break;
+            default:
+                $output->writeln($report->getMessage);
+        }
     }
 }
